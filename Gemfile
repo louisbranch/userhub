@@ -1,3 +1,5 @@
-require 'rubygems'
+source :rubygems
 
+gem 'shotgun'
 gem 'sinatra'
+gem 'thin'
