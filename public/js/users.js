@@ -9,8 +9,10 @@
 
   window.Users = Backbone.Collection.extend({
     model: User,
-    url: '/users'
+    url: '/users.json'
   });
+
+  window.list = new Users();
 
   window.UserView = Backbone.View.extend({
     tagName: 'li',
@@ -26,6 +28,57 @@
       ($(this.el)).html(rendered);
       return this;
     }
+  });
+
+  window.ListUserView = UserView.extend({});
+
+  window.ListView = Backbone.View.extend({
+    tagName: 'section',
+    className: 'list',
+    initialize: function() {
+      _.bindAll(this, 'render');
+      this.template = _.template(($('#list-template')).html());
+      return this.collection.bind('reset', this.render);
+    },
+    render: function() {
+      var $users;
+      $(this.el).html(this.template({}));
+      $users = this.$('.users');
+      this.collection.each(function(user) {
+        var view;
+        view = new ListUserView({
+          model: user,
+          collection: this.collection
+        });
+        return $users.append(view.render().el);
+      });
+      return this;
+    }
+  });
+
+  window.UserRouter = Backbone.Router.extend({
+    routes: {
+      '': 'home'
+    },
+    initialize: function() {
+      return this.listView = new ListView({
+        collection: window.list
+      });
+    },
+    home: function() {
+      var $container;
+      $container = $('#container');
+      $container.empty();
+      return $container.append(this.listView.render().el);
+    }
+  });
+
+  $(function() {
+    window.App = new UserRouter();
+    Backbone.history.start({
+      pushState: true
+    });
+    return list.fetch();
   });
 
 }).call(this);
