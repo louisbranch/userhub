@@ -1,5 +1,7 @@
 require 'sinatra'
 
+set :views, './views'
+
 get '/' do
-  "I'm alive!"
+  haml :index
 end
