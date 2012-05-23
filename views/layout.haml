@@ -4,6 +4,9 @@
   %script{:src => 'js/underscore-min.js'}
   %script{:src => 'js/zepto.min.js'}
   %script{:src => 'js/backbone-min.js'}
+  %script{:src => 'js/users.js'}
 %body
   %h1 UserHub
   = yield
+  %script{ type: 'text/template', id: 'user-template'}
+    %h2.name {{name}}
