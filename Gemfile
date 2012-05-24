@@ -1,6 +1,9 @@
 source :rubygems
 
 gem 'haml'
-gem 'shotgun'
 gem 'sinatra'
 gem 'thin'
+
+group :development do
+  gem 'shotgun'
+end
