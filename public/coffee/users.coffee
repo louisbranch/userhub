@@ -1,4 +1,4 @@
-# Change underscore.js interpolation from ruby-like to using {{ ... }}}
+# Change underscore.js interpolation from ruby-like to using {{ ... }}
 _.templateSettings =  interpolate :/\{\{(.+?)\}\}/g
 
 window.User = Backbone.Model.extend({})
@@ -33,6 +33,7 @@ window.ListView = Backbone.View.extend
     _.bindAll(@, 'render')
     @template = _.template(($ '#list-template').html())
     @collection.bind('reset', @render)
+    @collection.bind('add', @render)
 
   render: ->
     $(@.el).html(@template({}))
@@ -57,7 +58,11 @@ window.UserRouter = Backbone.Router.extend
     $container.empty()
     $container.append(@listView.render().el)
 
+window.createUser = (username) ->
+  $.get "https://api.github.com/users/#{username}", (data) ->
+    json = JSON.parse(data)
+    list.add(new User(json))
+
 $ ->
   window.App = new UserRouter()
   Backbone.history.start(pushState: true)
-  list.fetch()

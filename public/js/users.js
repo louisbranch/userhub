@@ -38,7 +38,8 @@
     initialize: function() {
       _.bindAll(this, 'render');
       this.template = _.template(($('#list-template')).html());
-      return this.collection.bind('reset', this.render);
+      this.collection.bind('reset', this.render);
+      return this.collection.bind('add', this.render);
     },
     render: function() {
       var $users;
@@ -73,12 +74,19 @@
     }
   });
 
+  window.createUser = function(username) {
+    return $.get("https://api.github.com/users/" + username, function(data) {
+      var json;
+      json = JSON.parse(data);
+      return list.add(new User(json));
+    });
+  };
+
   $(function() {
     window.App = new UserRouter();
-    Backbone.history.start({
+    return Backbone.history.start({
       pushState: true
     });
-    return list.fetch();
   });
 
 }).call(this);
