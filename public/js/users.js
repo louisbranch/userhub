@@ -78,7 +78,7 @@
   createUser = function(username) {
     return $.ajax({
       type: 'GET',
-      url: "http://api.github.com/users/" + username,
+      url: "https://api.github.com/users/" + username,
       success: function(data) {
         var json;
         json = JSON.parse(data);

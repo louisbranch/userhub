@@ -61,7 +61,7 @@ window.UserRouter = Backbone.Router.extend
 createUser = (username) ->
   $.ajax
     type: 'GET'
-    url: "http://api.github.com/users/#{username}"
+    url: "https://api.github.com/users/#{username}"
     success: (data) ->
       json = JSON.parse(data)
       list.add(new User(json))
