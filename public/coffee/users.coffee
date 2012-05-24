@@ -58,11 +58,28 @@ window.UserRouter = Backbone.Router.extend
     $container.empty()
     $container.append(@listView.render().el)
 
-window.createUser = (username) ->
-  $.get "https://api.github.com/users/#{username}", (data) ->
-    json = JSON.parse(data)
-    list.add(new User(json))
+createUser = (username) ->
+  $.ajax
+    type: 'GET'
+    url: "https://api.github.com/users/#{username}"
+    success: (data) ->
+      json = JSON.parse(data)
+      list.add(new User(json))
+    error: ->
+      alert "#{username} is not a valid Github login"
 
 $ ->
   window.App = new UserRouter()
   Backbone.history.start(pushState: true)
+
+$ submitUser = ->
+  if $('form#new-user')
+    $('form#new-user').submit (event) ->
+      $input = $('form#new-user input#user-login')
+      login = $input.val()
+      if login
+        createUser login
+        $input.val('')
+      else
+        alert 'error'
+      event.preventDefault()
