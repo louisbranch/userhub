@@ -69,7 +69,7 @@
     },
     home: function() {
       var $container;
-      $container = $('#container');
+      $container = $('.users_container');
       $container.empty();
       return $container.append(this.listView.render().el);
     }

@@ -54,7 +54,7 @@ window.UserRouter = Backbone.Router.extend
       collection: window.list
 
   home: ->
-    $container = ($ '#container')
+    $container = ($ '.users_container')
     $container.empty()
     $container.append(@listView.render().el)
 

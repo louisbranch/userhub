@@ -1,17 +1,13 @@
-%h1 Welcome to the Desert of the Real
-#container
-%form#new-user
-  %label{ for: 'user-login'} Github login
-  %input{ name: 'user-login', id: 'user-login'}
-  %input{ type: 'submit', value: 'Add'}
+.users_container
 %script{ type: 'text/template', id: 'user-template'}
   :plain
     <img src ="{{avatar_url}}" />
-  %h2.login {{login}} ({{name}})
-  %ul
-    %li Public Repositories: {{public_repos}}
-    %li Followers: {{followers}}
-    %li Following: {{following}}
+  .user-data
+    %h2.login {{login}}
+    %ul.unstyled
+      %li Name: ({{name}})
+      %li Public Repositories: {{public_repos}}
+      %li Followers: {{followers}}
+      %li Following: {{following}}
 %script{ type: 'text/template', id: 'list-template'}
-  %h2 Github Users
-  %ul.users
+  %ul.users.unstyled
