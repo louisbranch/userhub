@@ -5,13 +5,14 @@ window.User = Backbone.Model.extend({})
 
 window.Users = Backbone.Collection.extend
   model: User
-  url: '/users.json'
 
 window.list = new Users()
 
 window.UserView = Backbone.View.extend
   tagName: 'li'
   className: 'user'
+  events:
+    'click img, .user-data' : 'goTo'
 
   initialize: ->
     _.bindAll(@, 'render')
@@ -22,6 +23,9 @@ window.UserView = Backbone.View.extend
     rendered = @template(@model.toJSON())
     ($ @el).html(rendered)
     @
+
+  goTo: ->
+    window.location.href = @model.get('html_url')
 
 window.ListUserView = UserView.extend({})
 
@@ -57,6 +61,7 @@ window.UserRouter = Backbone.Router.extend
     $container = ($ '.users_container')
     $container.empty()
     $container.append(@listView.render().el)
+    fetchUsers()
 
 createUser = (username) ->
   $.ajax
@@ -68,9 +73,14 @@ createUser = (username) ->
     error: ->
       alert "#{username} is not a valid Github login"
 
-$ ->
-  window.App = new UserRouter()
-  Backbone.history.start(pushState: true)
+fetchUsers = ->
+  $.ajax
+    type: 'GET'
+    url: '/users.json'
+    success: (users) ->
+      for user in users
+        createUser user.username
+
 
 $ submitUser = ->
   if $('form#new-user')
@@ -83,3 +93,8 @@ $ submitUser = ->
       else
         alert 'error'
       event.preventDefault()
+
+$ ->
+  window.App = new UserRouter()
+  Backbone.history.start(pushState: true)
+

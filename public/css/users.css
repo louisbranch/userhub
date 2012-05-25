@@ -1,6 +1,14 @@
 li.user{
   float: left;
-  margin: 0 20px 20px 0;
+  margin: 0 20px 30px 0;
+  padding: 5px;
+  cursor: pointer;
+  border: 1px solid #fff;
+}
+
+li.user:hover{
+  background-color: #ddd;
+  border: 1px solid #ccc;
 }
 
 li.user h2{
@@ -17,6 +25,7 @@ li.user img{
   border: 1px solid #ccc;
   box-shadow: 1px 1px 1px #999;
   border-radius: 5px;
+  background-color: #fff;
 }
 
 li.user .user-data{
