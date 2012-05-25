@@ -21,7 +21,7 @@ window.UserView = Backbone.View.extend
 
   render: ->
     rendered = @template(@model.toJSON())
-    ($ @el).html(rendered)
+    ($ @el).html(rendered).hide().fadeIn().slideDown()
     @
 
   goTo: ->
@@ -34,10 +34,10 @@ window.ListView = Backbone.View.extend
   className: 'list'
 
   initialize: ->
-    _.bindAll(@, 'render')
+    _.bindAll(@, 'render', 'addOne')
     @template = _.template(($ '#list-template').html())
-    @collection.bind('reset', @render)
-    @collection.bind('add', @render)
+    @collection.bind('add', @addOne, @)
+    @render()
 
   render: ->
     $(@.el).html(@template({}))
@@ -47,6 +47,13 @@ window.ListView = Backbone.View.extend
         model: user
         collection: @collection
       $users.append(view.render().el)
+    @
+
+  addOne: (user) ->
+    $users = @$('.users')
+    view = new ListUserView
+      model: user
+    $users.append(view.render().el)
     @
 
 window.UserRouter = Backbone.Router.extend
@@ -66,9 +73,9 @@ window.UserRouter = Backbone.Router.extend
 createUser = (username) ->
   $.ajax
     type: 'GET'
+    dataType: 'json'
     url: "https://api.github.com/users/#{username}"
-    success: (data) ->
-      json = JSON.parse(data)
+    success: (json) ->
       list.add(new User(json))
     error: ->
       alert "#{username} is not a valid Github login"

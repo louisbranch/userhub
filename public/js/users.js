@@ -28,7 +28,7 @@
     render: function() {
       var rendered;
       rendered = this.template(this.model.toJSON());
-      ($(this.el)).html(rendered);
+      ($(this.el)).html(rendered).hide().fadeIn().slideDown();
       return this;
     },
     goTo: function() {
@@ -42,10 +42,10 @@
     tagName: 'section',
     className: 'list',
     initialize: function() {
-      _.bindAll(this, 'render');
+      _.bindAll(this, 'render', 'addOne');
       this.template = _.template(($('#list-template')).html());
-      this.collection.bind('reset', this.render);
-      return this.collection.bind('add', this.render);
+      this.collection.bind('add', this.addOne, this);
+      return this.render();
     },
     render: function() {
       var $users;
@@ -59,6 +59,15 @@
         });
         return $users.append(view.render().el);
       });
+      return this;
+    },
+    addOne: function(user) {
+      var $users, view;
+      $users = this.$('.users');
+      view = new ListUserView({
+        model: user
+      });
+      $users.append(view.render().el);
       return this;
     }
   });
@@ -84,10 +93,9 @@
   createUser = function(username) {
     return $.ajax({
       type: 'GET',
+      dataType: 'json',
       url: "https://api.github.com/users/" + username,
-      success: function(data) {
-        var json;
-        json = JSON.parse(data);
+      success: function(json) {
         return list.add(new User(json));
       },
       error: function() {
