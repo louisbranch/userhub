@@ -99,7 +99,7 @@
         return list.add(new User(json));
       },
       error: function() {
-        return alert("" + username + " is not a valid Github login");
+        return $('.alert-box').html("" + username + " is not a valid Github login").fadeIn('slow');
       }
     });
   };
@@ -129,8 +129,9 @@
         if (login) {
           createUser(login);
           $input.val('');
+          $('.alert-box').hide();
         } else {
-          alert('error');
+          $('.alert-box').html('Type a github username').fadeIn('slow');
         }
         return event.preventDefault();
       });

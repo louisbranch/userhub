@@ -31,3 +31,13 @@ li.user img{
 li.user .user-data{
   float: left;
 }
+
+.alert-box{
+  display: none;
+  padding: 4px 8px;
+  float: left;
+  border: 1px solid #222;
+  margin: 5px;
+  margin: 5px;
+  background: #444;
+}

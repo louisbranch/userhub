@@ -78,7 +78,7 @@ createUser = (username) ->
     success: (json) ->
       list.add(new User(json))
     error: ->
-      alert "#{username} is not a valid Github login"
+      $('.alert-box').html("#{username} is not a valid Github login").fadeIn('slow')
 
 fetchUsers = ->
   $.ajax
@@ -97,8 +97,9 @@ $ submitUser = ->
       if login
         createUser login
         $input.val('')
+        $('.alert-box').hide()
       else
-        alert 'error'
+        $('.alert-box').html('Type a github username').fadeIn('slow')
       event.preventDefault()
 
 $ ->
