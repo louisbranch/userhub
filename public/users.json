@@ -1,5 +1,74 @@
 [
   {
-    "name": "Luiz"
+    "username": "twitter"
+  },
+  {
+    "username": "joyent"
+  },
+  {
+    "username": "rails"
+  },
+  {
+    "username": "jquery"
+  },
+  {
+    "username": "h5bp"
+  },
+  {
+    "username": "octocat"
+  },
+  {
+    "username": "bartaz"
+  },
+  {
+    "username": "mxcl"
+  },
+  {
+    "username": "documentcloud"
+  },
+  {
+    "username": "diaspora"
+  },
+  {
+    "username": "mrdoob"
+  },
+  {
+    "username": "facebook"
+  },
+  {
+    "username": "plataformatec"
+  },
+  {
+    "username": "visionmedia"
+  },
+  {
+    "username": "harvesthq"
+  },
+  {
+    "username": "mojombo"
+  },
+  {
+    "username": "Modernizr"
+  },
+  {
+    "username": "blueimp"
+  },
+  {
+    "username": "cloudhead"
+  },
+  {
+    "username": "robbyrussell"
+  },
+  {
+    "username": "jashkenas"
+  },
+  {
+    "username": "github"
+  },
+  {
+    "username": "LearnBoost"
+  },
+  {
+    "username": "torvalds"
   }
 ]
